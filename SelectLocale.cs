@@ -1,4 +1,3 @@
-using Michsky.MUIP;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,26 +11,22 @@ public class SelectLocale : MonoBehaviour
     [ReadOnly] public LoadLocale[] loadLocaleTxts;
     public Image flagImage;
     public Sprite[] flags;
-    public CustomDropdown localizeDropDown;
+    public TMP_Dropdown localizeDropDown;
     private int ID;
-    public GameObject settingsObj;
+    private TMP_Dropdown[] tmp_Dropdowns;
+    private TextMeshProUGUI[] textMeshProUGUIs;
     private void Awake()
     {
-        settingsObj.SetActive(true);
-
         loadLocaleDropdowns = FindObjectsByType<LoadLocaleDropdown>(FindObjectsSortMode.None);
         loadLocaleTxts = FindObjectsByType<LoadLocale>(FindObjectsSortMode.None);
         ID = PlayerPrefs.GetInt("LocaleKey", 0);
         ChangeLocale(ID);
 
-        localizeDropDown.selectedItemIndex = ID;
+        localizeDropDown.value = ID;
 
         flagImage.sprite = flags[ID];
     }
-    void Start()
-    {
-        settingsObj.SetActive(false);
-    }
+
     private void UpdateAllTxt()
     {
         for (int i = 0; i < loadLocaleTxts.Length; i++)
@@ -43,8 +38,7 @@ public class SelectLocale : MonoBehaviour
     {
         for(int i = 0; i < loadLocaleDropdowns.Length; i++)
         {
-            loadLocaleDropdowns[i].UpdateDropdownTMP();
-            loadLocaleDropdowns[i].UpdateDropdownCustom();
+            loadLocaleTxts[i].UpdateText();
         }
     }
     public void ChangeLocale(int localeID)

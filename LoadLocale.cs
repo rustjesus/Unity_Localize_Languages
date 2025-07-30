@@ -1,30 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
-using Michsky.MUIP;
-using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Sirenix.OdinInspector;
 public class LoadLocale : MonoBehaviour
 {
     private string english;
     [ListDrawerSettings(ShowIndexLabels = true)][TextArea(5, 20)] public string french;
     [ListDrawerSettings(ShowIndexLabels = true)][TextArea(5, 20)] public string spanish;
     [ListDrawerSettings(ShowIndexLabels = true)][TextArea(5, 20)] public string italian;
+    [ListDrawerSettings(ShowIndexLabels = true)][TextArea(5, 20)] public string port_Brazil;
+    [ListDrawerSettings(ShowIndexLabels = true)][TextArea(5, 20)] public string port_Portugal;
     private TextMeshProUGUI textMeshProUGUItxt;
     private Text regTxt;
-    private ButtonManager bm;
     private void Awake()
     {
-        if(GetComponentInParent<ButtonManager>() != null)
-        {
-            bm = GetComponentInParent<ButtonManager>();
-        }
-        if (GetComponent<ButtonManager>() != null)
-        {
-            bm = GetComponent<ButtonManager>();
-        }
         if (GetComponent<Text>() != null)
         {
             regTxt = GetComponent<Text>();
@@ -35,11 +26,7 @@ public class LoadLocale : MonoBehaviour
             textMeshProUGUItxt = GetComponent<TextMeshProUGUI>();
             english = textMeshProUGUItxt.text;
         }
-        //set english for custom buttons
-        if (bm != null)
-        {
-            english = bm.buttonText;
-        }
+
         UpdateText();
     }
     public void UpdateText()
@@ -55,13 +42,6 @@ public class LoadLocale : MonoBehaviour
             if (textMeshProUGUItxt != null)
                 textMeshProUGUItxt.text = english;
 
-            if (bm != null)
-            {
-
-                bm.enabled = false;
-                bm.buttonText = english;
-                bm.enabled = true;
-            }
         }
         //FRENCH
         if (PlayerPrefs.GetInt("LocaleKey") == 1)
@@ -73,13 +53,6 @@ public class LoadLocale : MonoBehaviour
             if (textMeshProUGUItxt != null)
                 textMeshProUGUItxt.text = french;
 
-            if (bm != null)
-            {
-
-                bm.enabled = false;
-                bm.buttonText = french;
-                bm.enabled = true;
-            }
         }
         //SPANISH
         if (PlayerPrefs.GetInt("LocaleKey") == 2)
@@ -91,13 +64,6 @@ public class LoadLocale : MonoBehaviour
             if (textMeshProUGUItxt != null)
                 textMeshProUGUItxt.text = spanish;
 
-            if (bm != null)
-            {
-
-                bm.enabled = false;
-                bm.buttonText = spanish;
-                bm.enabled = true;
-            }
         }
         //ITALIAN
         if (PlayerPrefs.GetInt("LocaleKey") == 3)
@@ -109,13 +75,28 @@ public class LoadLocale : MonoBehaviour
             if (textMeshProUGUItxt != null)
                 textMeshProUGUItxt.text = italian;
 
-            if (bm != null)
-            {
+        }
+        //port brazil
+        if (PlayerPrefs.GetInt("LocaleKey") == 4)
+        {
+            if (regTxt != null)
+                regTxt.text = port_Brazil;
 
-                bm.enabled = false;
-                bm.buttonText = italian;
-                bm.enabled = true;
-            }
+
+            if (textMeshProUGUItxt != null)
+                textMeshProUGUItxt.text = port_Brazil;
+
+        }
+        //port portugal
+        if (PlayerPrefs.GetInt("LocaleKey") == 5)
+        {
+            if (regTxt != null)
+                regTxt.text = port_Portugal;
+
+
+            if (textMeshProUGUItxt != null)
+                textMeshProUGUItxt.text = port_Portugal;
+
         }
 
     }
